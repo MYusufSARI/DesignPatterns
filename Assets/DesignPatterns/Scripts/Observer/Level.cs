@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class Level : MonoBehaviour
 {
     [SerializeField] int pointsPerLevel = 200;
     int experincePoints;
+
+    public static Action onLevelUp;
 
 
     IEnumerator Start()
@@ -21,7 +24,13 @@ public class Level : MonoBehaviour
 
     public void GainExperience(int points)
     {
+        int level = GetLevel();
+
         experincePoints += points;
+
+        if (GetLevel() > level)
+            onLevelUp?.Invoke();
+            
     }
 
 

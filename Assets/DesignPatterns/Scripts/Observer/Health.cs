@@ -4,15 +4,51 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] float fullHealth = 100f;
+    [SerializeField] float drainPerSecond = 2f;
+
+    float currentHealth = 0;
+
+
+    private void Awake()
     {
-        
+        ResetHealth();
+
+        StartCoroutine(HealthDrain());
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Start()
     {
-        
+        Level.onLevelUp += ResetHealth;
+    }
+
+
+    private void OnDestroy()
+    {
+        Level.onLevelUp -= ResetHealth;
+    }
+
+
+    public float GetHealth()
+    {
+        return currentHealth;
+    }
+
+
+    private void ResetHealth()
+    {
+        currentHealth = fullHealth;
+    }
+
+
+    private IEnumerator HealthDrain()
+    {
+        while(currentHealth > 0)
+        {
+            currentHealth -= drainPerSecond;
+
+            yield return new WaitForSeconds(1);
+        }
     }
 }
