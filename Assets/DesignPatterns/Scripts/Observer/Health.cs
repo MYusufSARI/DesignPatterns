@@ -7,6 +7,8 @@ public class Health : MonoBehaviour
     [SerializeField] float fullHealth = 100f;
     [SerializeField] float drainPerSecond = 2f;
 
+    [SerializeField] private ParticleSystem _particleSystem;
+
     float currentHealth = 0;
 
 
@@ -39,6 +41,8 @@ public class Health : MonoBehaviour
     private void ResetHealth()
     {
         currentHealth = fullHealth;
+
+        _particleSystem.Play();
     }
 
 
