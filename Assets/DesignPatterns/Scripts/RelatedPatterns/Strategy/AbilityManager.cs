@@ -6,10 +6,19 @@ public class AbilityManager : MonoBehaviour
 {
     [SerializeField]
     IAbility currentAbility =
-        new DelayedDecorator
-        (
-            new RageAbility()
+        new SequenceComposite
+         (
+            new IAbility[]
+            {
+                new HealAbility(),
+                new RageAbility(),
+                new DelayedDecorator
+                (
+                   new RageAbility()
+                )
+            }
         );
+
 
 
     private void Start()
