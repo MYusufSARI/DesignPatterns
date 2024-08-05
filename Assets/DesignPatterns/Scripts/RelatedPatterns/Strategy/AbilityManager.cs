@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class AbilityManager : MonoBehaviour
 {
-    [SerializeField] IAbility currentAbility = new RageAbility();
+    [SerializeField]
+    IAbility currentAbility =
+        new DelayedDecorator
+        (
+            new RageAbility()
+        );
 
 
     private void Start()
